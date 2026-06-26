@@ -10,22 +10,21 @@ from pydantic import BaseModel, Field
 class LogLevel(str, Enum):
     DEBUG = "DEBUG"
     INFO = "INFO"
-    WARNING = "WARNING"
+    WARNING = "WARN"
     ERROR = "ERROR"
-    CRITICAL = "CRITICAL"
+    FATAL = "FATAL"
 
 
 # ── App Log ──────────────────────────────────────────────────────────────────
 
 class AppLogRequest(BaseModel):
-    service_id: str = Field(..., description="Registered service UUID (no dashes)")
+    context_json: dict[str, Any] | None = None
+    created_at: datetime
+    environment: str
     level: LogLevel
     message: str
     source_service: str
-    environment: str
-    created_at: datetime
-    timestamp: datetime | None = Field(default=None, description="Defaults to now() if omitted")
-    extra: dict[str, Any] | None = None
+    trace_id: str
 
     model_config = {"use_enum_values": True}
 
@@ -59,18 +58,17 @@ class BatchAppLogResponse(BaseModel):
 # ── Audit Log ─────────────────────────────────────────────────────────────────
 
 class AuditLogRequest(BaseModel):
-    service_id: str
-    source_service: str
-    environment: str
+    action: str
     actor_id: str | None = None
     actor_type: str
-    action: str
-    target_resource: str
-    outcome: str
+    detail_json: dict[str, Any] | None = None
+    environment: str
     event_time: datetime
-    resource_id: str | None = None
-    meta: dict[str, Any] | None = None
-
+    ip_address: str
+    outcome: str
+    source_service: str
+    target_resource: str
+    
     model_config = {"use_enum_values": True}
 
 
