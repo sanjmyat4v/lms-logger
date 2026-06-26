@@ -15,8 +15,7 @@ def generate_signature(secret: str, body: bytes, timestamp: str) -> str:
 
     Returns the hex digest.
     """
-    body_hash = hashlib.sha256(body).hexdigest()
-    message = f"{timestamp}.{body_hash}".encode()
+    message = f"{timestamp}.".encode() + body
     return hmac.new(secret.encode(), message, hashlib.sha256).hexdigest()
 
 

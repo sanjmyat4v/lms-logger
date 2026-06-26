@@ -43,8 +43,7 @@ def test_signature_changes_with_body():
 def test_signature_matches_manual_hmac():
     body = b'{"x":1}'
     ts = "1700000000"
-    body_hash = hashlib.sha256(body).hexdigest()
-    message = f"{ts}.{body_hash}".encode()
+    message = f"{ts}.".encode() + body
     expected = hmac.new(SECRET.encode(), message, hashlib.sha256).hexdigest()
     assert generate_signature(SECRET, body, ts) == expected
 
