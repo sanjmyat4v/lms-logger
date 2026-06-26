@@ -14,6 +14,11 @@ class LogLevel(str, Enum):
     ERROR = "ERROR"
     FATAL = "FATAL"
 
+class ActorType(str, Enum):
+    USER = 'USER'
+    SERVICE = 'SERVICE'
+    SYSTEM = 'SYSTEM'
+
 
 # ── App Log ──────────────────────────────────────────────────────────────────
 
@@ -60,7 +65,7 @@ class BatchAppLogResponse(BaseModel):
 class AuditLogRequest(BaseModel):
     action: str
     actor_id: str | None = None
-    actor_type: str
+    actor_type: ActorType
     detail_json: dict[str, Any] | None = None
     environment: str
     event_time: datetime
