@@ -31,12 +31,8 @@ class AppLogRequest(BaseModel):
 
 
 class AppLogResponse(BaseModel):
-    id: int
-    service_id: str
-    level: str
-    message: str
-    timestamp: datetime
-    extra: dict[str, Any] | None = None
+    log_id: int
+    ingested_at: datetime
 
 
 # ── Batch App Log ─────────────────────────────────────────────────────────────
