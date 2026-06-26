@@ -19,6 +19,11 @@ class ActorType(str, Enum):
     SERVICE = 'SERVICE'
     SYSTEM = 'SYSTEM'
 
+class OutcomeType(str, Enum):
+    SUCCESS = 'SUCCESS'
+    FAILURE = 'FAILURE'
+    PARTIAL = 'PARTIAL'
+
 
 # ── App Log ──────────────────────────────────────────────────────────────────
 
@@ -70,7 +75,7 @@ class AuditLogRequest(BaseModel):
     environment: str
     event_time: datetime
     ip_address: str
-    outcome: str
+    outcome: OutcomeType
     source_service: str
     target_resource: str
     
