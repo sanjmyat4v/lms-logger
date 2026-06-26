@@ -21,6 +21,9 @@ class AppLogRequest(BaseModel):
     service_id: str = Field(..., description="Registered service UUID (no dashes)")
     level: LogLevel
     message: str
+    source_service: str
+    environment: str
+    created_at: datetime
     timestamp: datetime | None = Field(default=None, description="Defaults to now() if omitted")
     extra: dict[str, Any] | None = None
 
